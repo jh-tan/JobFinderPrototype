@@ -1,16 +1,20 @@
-# jobproject_1
 
-A new Flutter project.
+# MyJobPro+
+
+A job finder and upskill prototype that made by using flutter.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+<h3>Application walkthrough<h3>
+![](assets/images/walkthrough.gif)
+![](assets/images/Apply.gif)
+![](assets/images/History.gif)
+![](assets/images/Upskill.gif)
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<h3>Things to take notes</h3>
+<li>
+This project is a prototype that is used for the course LMCR3933. 
+</li>
+<li>Most of the UI design is obtained from internet.</li>
+<li>Functionality like search, filter is not implemented.
