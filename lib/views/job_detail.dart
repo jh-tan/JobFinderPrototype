@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
-import 'constant.dart';
-import 'company.dart';
+import '../constant.dart';
+import '../models/company.dart';
 import 'description_tab.dart';
 import 'company_tab.dart';
+import '../widgets/confirmation_dialog.dart';
+import '../models/savedData.dart';
 
 
 class JobDetail extends StatelessWidget {
   final Company company;
-  JobDetail({this.company});
+  final UserData user;
+  JobDetail({this.company, this.user});
 
   @override
   Widget build(BuildContext context) {
+    print(user.getSkill());
     return Scaffold(
       backgroundColor: kSilver,
       appBar: AppBar(
@@ -160,7 +164,11 @@ class JobDetail extends StatelessWidget {
                 child: SizedBox(
                   height: 50.0,
                   child: RaisedButton(
-                    onPressed: () {},
+                    onPressed: (){
+                      showDialog(context: context,
+                        builder: (context)=>ConfirmationDialogBox(company: company,user: user,)
+                    );
+                  },
                     color: kBlack,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12.0),

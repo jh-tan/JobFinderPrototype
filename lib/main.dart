@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'enterSkill.dart';
+import 'views/enterSkill.dart';
 
 void main() {
   runApp(MyApp());

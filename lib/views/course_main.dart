@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'constant.dart';
-import 'category.dart';
+import '../constant.dart';
+import '../models/category.dart';
+import '../models/savedData.dart';
 import 'courselist.dart';
 
 class CourseMain extends StatelessWidget {
+  final UserData user;
+  CourseMain({this.user});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,7 +85,10 @@ class CourseMain extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => CourseList(title:categories[index].name)
+                              builder: (context) => CourseList(
+                                title:categories[index].name,
+                                user: user,
+                              )
                             )
                           );
                         },

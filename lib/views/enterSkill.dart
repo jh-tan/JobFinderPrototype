@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:dropdownfield/dropdownfield.dart';
 import 'home.dart';
-import 'constant.dart';
+import '../constant.dart';
+import '../models/savedData.dart';
 
 class ViewSkill extends StatefulWidget {
   @override
@@ -9,6 +10,7 @@ class ViewSkill extends StatefulWidget {
 }
 
 class _ViewSkillState extends State<ViewSkill> {
+  final UserData user= new UserData();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,7 +90,8 @@ class _ViewSkillState extends State<ViewSkill> {
                     color: Colors.white,
                     onPressed: (){
                       setState(() {
-                        enterSkill.add(skillSelected.text);
+                      //   enterSkill.add(skillSelected.text);
+                        user.saveSkill(skillSelected.text);
                       });
                       skillSelected.text = '';
                     }
@@ -98,7 +101,9 @@ class _ViewSkillState extends State<ViewSkill> {
             ),
             SizedBox(height: 10.0),
             Wrap(
-              children: enterSkill.map((skill) =>skillTag(skill)).toList()
+              children: user.getSkill().isNotEmpty
+                ?user.getSkill().map((skill) =>skillTag(skill)).toList()
+                :[]
             ),
             SizedBox(height: 10.0),
             GestureDetector(
@@ -106,7 +111,7 @@ class _ViewSkillState extends State<ViewSkill> {
                 Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context)=> MainMenu()
+                  builder: (context)=> MainMenu(user: user)
                 )
               );
               },
@@ -168,7 +173,7 @@ class _ViewSkillState extends State<ViewSkill> {
             icon:Icon(Icons.close),
             onPressed: (){
               setState(() {
-                enterSkill.remove(skill);
+                user.removeSkill(skill);
               });
             },
           )

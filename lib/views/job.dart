@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
-import 'constant.dart';
-import 'company_card.dart';
-import 'company_card2.dart';
-import 'company.dart';
+import '../constant.dart';
+import '../widgets/company_card.dart';
+import '../widgets/company_card2.dart';
+import '../models/company.dart';
 import 'job_detail.dart';
+import '../widgets/latest_job_card.dart';
+import '../models/savedData.dart';
 
 class Job extends StatelessWidget {
+  final UserData user;
+  Job({this.user});
   @override
   Widget build(BuildContext context) {
+    print(user.getSkill());
     return Scaffold(
       body: Container(
         margin:EdgeInsets.only(left:18.0),
@@ -36,10 +41,13 @@ class Job extends StatelessWidget {
                           child: TextField(
                             cursorColor:kBlack,
                             decoration:InputDecoration(
-                              icon:Icon(
-                                Icons.search,
-                                size:25.0,
-                                color:kBlack
+                              icon:IconButton(
+                                onPressed: (){},
+                                icon:Icon(
+                                  Icons.search,
+                                  size:25.0,
+                                  color:kBlack
+                                )
                               ),
                               border: InputBorder.none,
                               hintText: "Search for job title",
@@ -58,9 +66,11 @@ class Job extends StatelessWidget {
                           color: kBlack,
                           borderRadius:BorderRadius.circular(12.0)
                         ),
-                        child: Icon(
-                          Icons.segment,
-                          color: Colors.white,
+                        child: IconButton(
+                          onPressed: (){},
+                          icon:Icon(Icons.segment,
+                          color: Colors.white
+                          )
                         ),
                       )
                     ],
@@ -88,6 +98,7 @@ class Job extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                               builder: (context) => JobDetail(
+                                user: user,
                                 company: company,
                               ),
                             ),
@@ -106,12 +117,29 @@ class Job extends StatelessWidget {
                   style:kTitleStyle
                 ),
                 ListView.builder(
-                  itemCount:50,
-                  scrollDirection:Axis.vertical,
-                  shrinkWrap:true,
-                  physics:ScrollPhysics(),
-                  itemBuilder:(_,index)=>Text('new')
-                )
+                itemCount: recentList.length,
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                physics: ScrollPhysics(),
+                itemBuilder: (context, index) {
+                  var recent = recentList[index];
+                  return InkWell(
+                    onTap: () {
+                      print(recentList[index]);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => JobDetail(
+                            company: recent,
+                            user: user,
+                          ),
+                        ),
+                      );
+                    },
+                    child: LastestJobCard(company: recent),
+                  );
+                },
+              ),
             ],
           )
         )

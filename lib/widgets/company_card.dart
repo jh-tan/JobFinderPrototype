@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'constant.dart';
-import 'company.dart';
+import '../constant.dart';
+import '../models/company.dart';
 
-class CompanyCard2 extends StatelessWidget {
+class CompanyCard extends StatelessWidget {
   final Company company;
-  CompanyCard2({this.company});
+  CompanyCard({this.company});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -13,7 +13,7 @@ class CompanyCard2 extends StatelessWidget {
       padding: EdgeInsets.all(15.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12.0),
-        color: Colors.white,
+        color: kBlack,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,14 +35,17 @@ class CompanyCard2 extends StatelessWidget {
               Spacer(),
               Text(
                 company.salary,
-                style: kTitleStyle,
+                style: kTitleStyle.copyWith(color: Colors.white),
               ),
             ],
           ),
           SizedBox(height: 15.0),
           Text(
             company.job,
-            style: kTitleStyle,
+            style: kTitleStyle.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           SizedBox(height: 15.0),
           RichText(
@@ -50,46 +53,51 @@ class CompanyCard2 extends StatelessWidget {
               children: [
                 TextSpan(
                   text: company.companyName,
-                  style: kSubtitleStyle,
+                  style: kSubtitleStyle.copyWith(
+                    color: Colors.white,
+                  ),
                 ),
                 TextSpan(
                   text: "  •  ",
-                  style: kSubtitleStyle,
+                  style: kSubtitleStyle.copyWith(
+                    color: Colors.white,
+                  ),
                 ),
                 TextSpan(
                   text: company.city,
-                  style: kSubtitleStyle,
+                  style: kSubtitleStyle.copyWith(
+                    color: Colors.white,
+                  ),
                 ),
               ],
             ),
           ),
           SizedBox(height: 15.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: company.tag
-                .map(
-                  (e) => Container(
-                    alignment: Alignment.center,
-                    margin: EdgeInsets.only(right: 10.0),
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 12.0, vertical: 5.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.0),
-                      color: Colors.white,
-                      border: Border.all(
-                        color: kBlack,
-                        width: 0.5,
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: company.tag
+                  .map(
+                    (e) => Container(
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.only(right: 10.0),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 12.0, vertical: 5.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12.0),
+                        color: kBlackAccent,
+                      ),
+                      child: Text(
+                        e,
+                        style: kSubtitleStyle.copyWith(
+                          color: Colors.white,
+                          fontSize: 12.0,
+                        ),
                       ),
                     ),
-                    child: Text(
-                      e,
-                      style: kSubtitleStyle.copyWith(
-                        fontSize: 12.0,
-                      ),
-                    ),
-                  ),
-                )
-                .toList(),
+                  )
+                  .toList(),
+            ),
           ),
         ],
       ),

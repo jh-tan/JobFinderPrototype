@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:jobproject_1/job.dart';
+import 'job.dart';
 import 'course_main.dart';
+import '../models/savedData.dart';
+import 'profile.dart';
 
 class MainMenu extends StatefulWidget {
+  final UserData user;
+  MainMenu({this.user});
   @override
   _MainMenuState createState() => _MainMenuState();
 }
@@ -10,12 +14,16 @@ class MainMenu extends StatefulWidget {
 class _MainMenuState extends State<MainMenu> {
   int _selectedIndex = 0;
 
-  List<Widget> _widgetOptions = <Widget>[
-    Job(),
-    CourseMain()
+  List<Widget> _widgetOptions() {
+  return [
+    Job(user: widget.user),
+    CourseMain(user:widget.user),
+    ProfilePage(user:widget.user),
   ];
+}
   @override
   Widget build(BuildContext context) {
+    print(widget.user.getSkill());
     return Scaffold(
       backgroundColor: Color(0xFFF6F6F6),
       appBar: AppBar(
@@ -23,7 +31,7 @@ class _MainMenuState extends State<MainMenu> {
         elevation: 0.0,
         toolbarHeight: 10.0,
       ),
-      body: _widgetOptions.elementAt(_selectedIndex),
+      body: _widgetOptions().elementAt(_selectedIndex),
       bottomNavigationBar:BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.black,

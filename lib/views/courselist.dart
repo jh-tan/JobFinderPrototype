@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:jobproject_1/coursedetail.dart';
-import 'course.dart';
-import 'constant.dart';
+import 'coursedetail.dart';
+import '../models/course.dart';
+import '../constant.dart';
+import '../models/savedData.dart';
 
 
 class CourseList extends StatelessWidget {
 
   final String title;
-  CourseList({this.title});
+  final UserData user;
+  CourseList({this.title,this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +33,15 @@ class CourseList extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child:Column(
-        children:courseData.map((course)=>
+        children:categories.map((course)=>
         GestureDetector(onTap:(){
            Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => DetailsScreen()
+                builder: (context) => DetailsScreen(
+                  course:course,
+                  user: user,
+                  )
               )
             );
         },child:courseCard(course,context))).toList()
@@ -66,7 +71,7 @@ class CourseList extends StatelessWidget {
         children:<Widget> [
         Expanded(
           flex: 5,
-          child: Image.asset(course['image'],
+          child: Image.asset(course.image,
             height: 130,
           )
         ),
@@ -76,9 +81,9 @@ class CourseList extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
                 SizedBox(height:10.0),
-                Text(course['name'],style:kTitle_courseList,),
+                Text(course.name,style:kTitle_courseList,),
                 SizedBox(height:5.0),
-                Text(course['offerUniversity']),
+                Text(course.offerUniversity),
                 Container(
                   margin: EdgeInsets.symmetric(vertical: 5.0),
                   padding: EdgeInsets.symmetric(
@@ -91,14 +96,14 @@ class CourseList extends StatelessWidget {
                         Border.all(color: kBlack.withOpacity(.5)),
                   ),
                   child: Text(
-                    course['type'],
+                    course.type,
                     style: kSubtitleStyle,
                   ),
                 ),
                 SizedBox(height: 5.0),
-                Text('Price : ${course['price']}'),
+                Text('Price : ${course.price}'),
                 SizedBox(height: 5.0),
-                Text('Level : ${course['level']}'),
+                Text('Level : ${course.level}'),
               ],
             )
         ),

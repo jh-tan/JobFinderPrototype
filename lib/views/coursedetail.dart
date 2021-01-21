@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
-import 'constant.dart';
+import '../constant.dart';
+import '../widgets/successful_dialog.dart';
+import '../models/savedData.dart';
+import '../models/course.dart';
+
 
 class DetailsScreen extends StatelessWidget {
+  final Course course;
+  final UserData user;
+  DetailsScreen({this.course,this.user});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +60,7 @@ class DetailsScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 16),
-                  Text("Design Thinking", style: kTitleStyle),
+                  Text(course.name, style: kTitleStyle),
                   SizedBox(height: 16),
                   Row(
                     children: <Widget>[
@@ -71,7 +78,7 @@ class DetailsScreen extends StatelessWidget {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: "\$RM300 ",
+                          text: course.price,
                           style: kTitleStyle.copyWith(fontSize: 32),
                         ),
                         TextSpan(
@@ -147,32 +154,36 @@ class DetailsScreen extends StatelessWidget {
               width: double.infinity,
               child: Row(
                 children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.all(14),
-                    height: 56,
-                    width: 80,
-                    decoration: BoxDecoration(
-                      color: Color(0xFFFFEDEE),
-                      borderRadius: BorderRadius.circular(40),
-                    ),
-                    child: Icon(Icons.shopping_bag),
-                  ),
-                  SizedBox(width: 20),
                   Expanded(
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: 56,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(40),
-                        color: kBlack,
-                      ),
-                      child: Text(
-                        "Buy Now",
-                        style: kTitleStyle.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
+                    child: GestureDetector(
+                      onTap: (){
+                        user.subscribeCourse(course);
+                        showDialog(context: context,
+                          builder: (context){
+                            return SuccessfulDialogBox(
+                              buttonText:'Confirmed' ,
+                              title: 'Success',
+                              description: 'Course purchase success!',
+                              from: context,
+                            );
+                          }
+                        );
+                      },
+                      child:Container(
+                        alignment: Alignment.center,
+                        height: 56,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(40),
+                          color: kBlack,
                         ),
-                      ),
+                        child: Text(
+                          "Buy Now",
+                          style: kTitleStyle.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      )
                     ),
                   )
                 ],
